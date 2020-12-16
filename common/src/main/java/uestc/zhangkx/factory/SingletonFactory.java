@@ -1,30 +1,31 @@
 package uestc.zhangkx.factory;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 单例工厂
  * @author zhangkx
  * @version 1.0
- * @date 2020/12/14 16:34
+ * @date 2020/12/16 15:48
  */
-public final class SingletonFactory {
-    private static volatile Map<String, Object> OBJECT_MAP = new HashMap<>();
+public class SingletonFactory {
+    private static Map<String, Object> FACTORY = new ConcurrentHashMap<>();
 
-    private SingletonFactory() {
+    public SingletonFactory() {
     }
 
-    public static <T> T getInstance(Class<T> c) {
-        String key = c.toString();
-        Object instance = OBJECT_MAP.get(key);
-        if (instance == null) {
-            synchronized (SingletonFactory.class) {
-                instance = OBJECT_MAP.get(key);
-                if (instance == null) {
+    public static <T> T getInstance(Class<T> clazz){
+        String key = clazz.toString();
+        Object instance = FACTORY.get(key);
+        if (instance == null){
+            synchronized (SingletonFactory.class){
+                instance = FACTORY.get(key);
+                if (instance==null){
                     try {
-                        instance = c.getDeclaredConstructor().newInstance();
-                        OBJECT_MAP.put(key, instance);
+                        instance=clazz.getDeclaredConstructor().newInstance();
+                        FACTORY.put(key,instance);
                     } catch (IllegalAccessException | InstantiationException e) {
                         throw new RuntimeException(e.getMessage(), e);
                     } catch (NoSuchMethodException | InvocationTargetException e) {
@@ -33,6 +34,6 @@ public final class SingletonFactory {
                 }
             }
         }
-        return c.cast(instance);
+        return clazz.cast(instance);
     }
 }
