@@ -1,0 +1,1 @@
+loadBalance=uestc.zhangkx.loadbalance.loadbalancer.ConsistentHashLoadBalance

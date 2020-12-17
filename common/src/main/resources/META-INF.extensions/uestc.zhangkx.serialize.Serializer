@@ -1,0 +1,2 @@
+kyro=uestc.zhangkx.serialize.kyro.KryoSerializer
+protostuff=uestc.zhangkx.serialize.protostuff.ProtostuffSerializer
