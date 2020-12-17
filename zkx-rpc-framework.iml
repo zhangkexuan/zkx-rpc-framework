@@ -54,5 +54,6 @@
     <orderEntry type="library" name="Maven: io.protostuff:protostuff-api:1.7.2" level="project" />
     <orderEntry type="library" name="Maven: io.protostuff:protostuff-collectionschema:1.7.2" level="project" />
     <orderEntry type="library" name="Maven: io.protostuff:protostuff-core:1.7.2" level="project" />
+    <orderEntry type="library" name="Maven: com.caucho:hessian:4.0.63" level="project" />
   </component>
 </module>

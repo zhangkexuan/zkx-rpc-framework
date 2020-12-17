@@ -16,7 +16,7 @@ import uestc.zhangkx.serialize.Serializer;
 public class ProtostuffSerializer implements Serializer {
 
     /**
-     * Avoid re applying buffer space every time serialization
+     * 申请缓冲区，不然每次都要重新申请
      */
     private static final LinkedBuffer BUFFER = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
 

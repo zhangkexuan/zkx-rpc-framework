@@ -22,7 +22,7 @@ import java.io.ByteArrayOutputStream;
 public class KryoSerializer implements Serializer {
 
     /**
-     * Because Kryo is not thread safe. So, use ThreadLocal to store Kryo objects
+     * 包装到ThreadLocal（kryo线程不安全）
      */
     private final ThreadLocal<Kryo> kryoThreadLocal = ThreadLocal.withInitial(() -> {
         Kryo kryo = new Kryo();
@@ -31,12 +31,13 @@ public class KryoSerializer implements Serializer {
         return kryo;
     });
 
+
     @Override
     public byte[] serialize(Object obj) {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 Output output = new Output(byteArrayOutputStream)) {
             Kryo kryo = kryoThreadLocal.get();
-            // Object->byte:将对象序列化为byte数组
+            // Object->byte
             kryo.writeObject(output, obj);
             kryoThreadLocal.remove();
             return output.toBytes();
@@ -50,7 +51,7 @@ public class KryoSerializer implements Serializer {
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
                 Input input = new Input(byteArrayInputStream)) {
             Kryo kryo = kryoThreadLocal.get();
-            // byte->Object:从byte数组中反序列化出对对象
+            // byte->Object
             Object o = kryo.readObject(input, clazz);
             kryoThreadLocal.remove();
             return clazz.cast(o);
@@ -58,5 +59,4 @@ public class KryoSerializer implements Serializer {
             throw new SerializeException("Deserialization failed");
         }
     }
-
 }

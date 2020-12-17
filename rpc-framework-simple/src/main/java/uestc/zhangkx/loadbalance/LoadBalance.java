@@ -13,11 +13,11 @@ import java.util.List;
  */
 @SPI
 public interface LoadBalance {
+
     /**
-     * Choose one from the list of existing service addresses list
-     *
-     * @param serviceAddresses Service address list
-     * @return target service address
+     * @param serviceAddresses 服务列表
+     * @param rpcServiceName rpc服务名
+     * @return 目标服务地址
      */
     String selectServiceAddress(List<String> serviceAddresses, String rpcServiceName);
 }
