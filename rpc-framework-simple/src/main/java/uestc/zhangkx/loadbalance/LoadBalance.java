@@ -14,6 +14,8 @@ import java.util.List;
 @SPI
 public interface LoadBalance {
 
+    static int count = 0;
+
     /**
      * @param serviceAddresses 服务列表
      * @param rpcServiceName rpc服务名

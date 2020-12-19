@@ -19,6 +19,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class ConsistentHashLoadBalance extends AbstractLoadBalance {
+
+    /**
+     * key:rpcServiceName value:selector
+     */
     private final ConcurrentHashMap<String, ConsistentHashSelector> selectors = new ConcurrentHashMap<>();
 
     @Override
@@ -37,8 +41,9 @@ public class ConsistentHashLoadBalance extends AbstractLoadBalance {
     }
 
     static class ConsistentHashSelector {
+        //虚拟节点
         private final TreeMap<Long, String> virtualInvokers;
-
+        //哈希
         private final int identityHashCode;
 
         ConsistentHashSelector(List<String> invokers, int replicaNumber, int identityHashCode) {

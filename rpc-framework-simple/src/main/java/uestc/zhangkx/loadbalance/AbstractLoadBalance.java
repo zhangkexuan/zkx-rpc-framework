@@ -9,6 +9,7 @@ import java.util.List;
  * @date 2020/12/17 13:43
  */
 public abstract class AbstractLoadBalance implements LoadBalance {
+
     @Override
     public String selectServiceAddress(List<String> serviceAddresses, String rpcServiceName) {
         if (serviceAddresses == null || serviceAddresses.size() == 0) {
